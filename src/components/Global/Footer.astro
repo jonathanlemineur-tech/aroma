@@ -27,7 +27,7 @@ const { render = true } = Astro.props;
     <footer class="footer_wrap">
       <div class="footer_inner">
         <div class="footer_top">
-          <a class="footer_logo" href="/" aria-label={SITE_NAME}>
+          <a class="footer_logo" href={import.meta.env.BASE_URL} aria-label={SITE_NAME}>
             <Icon src={logo} variant="full-width" />
           </a>
           <nav aria-label="Pied de page">
@@ -88,12 +88,12 @@ const { render = true } = Astro.props;
           <p class="footer_copyright text-style-small">© <span>{new Date().getFullYear()}</span>&#160; {SITE_NAME} · Designed with 🖤 by{" "} <a href="https://jak.solutions" class="footer_link" target="_blank" rel="noopener noreferrer"><strong>JAK Solutions</strong></a></p>
           <ul class="footer_legal">
             <li>
-              <a class="footer_link" href="/mentions-legales">
+              <a class="footer_link" href={`${import.meta.env.BASE_URL}mentions-legales`}>
                 Mentions légales
               </a>
             </li>
             <li>
-              <a class="footer_link" href="/confidentialite">
+              <a class="footer_link" href={`${import.meta.env.BASE_URL}confidentialite`}>
                 Politique de confidentialité
               </a>
             </li>

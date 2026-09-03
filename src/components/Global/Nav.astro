@@ -23,7 +23,7 @@ const { render = true, overlap = false } = Astro.props;
   render && (
     <header class:list={["nav_wrap", overlap && "overlap"]}>
       <div class="nav_inner">
-        <a class="nav_logo" href="/" aria-label={SITE_NAME}>
+        <a class="nav_logo" href={import.meta.env.BASE_URL} aria-label={SITE_NAME}>
           <Icon src={logo} variant="full-width" />
         </a>
         <nav class="nav_menu" id="nav-menu" aria-label="Principal">

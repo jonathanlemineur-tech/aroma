@@ -23,7 +23,7 @@ import ContentWrapper from "@/components/Wrapper/ContentWrapper.astro";
         you here might be out of date.</Paragraph
       >
       <ButtonWrapper>
-        <Button element="link" href="/">Back to home</Button>
+        <Button element="link" href={import.meta.env.BASE_URL}>Back to home</Button>
       </ButtonWrapper>
     </ContentWrapper>
   </Section>
