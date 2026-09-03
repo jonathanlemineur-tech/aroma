@@ -9,7 +9,7 @@ type Props = SeoProps;
 const {
   title,
   description = SITE_DESCRIPTION,
-  image = "/og-image.png",
+  image = "og-image.png",
   type = "website",
   noindex,
 } = Astro.props;
@@ -17,8 +17,14 @@ const {
 const isNoindex = noindex ?? isNoindexRoute(Astro.url.pathname);
 
 const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
+const base = import.meta.env.BASE_URL;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const socialImage = new URL(image, Astro.site);
+const homeUrl = new URL(base, Astro.site);
+const socialImage = new URL(`${base}${image}`, Astro.site);
+const favicon32 = `${base}favicon-32x32.png`;
+const favicon16 = `${base}favicon-16x16.png`;
+const appleTouchIcon = `${base}apple-touch-icon.png`;
+const manifest = `${base}site.webmanifest`;
 
 const businessSchema = {
   "@context": "https://schema.org",
@@ -26,7 +32,7 @@ const businessSchema = {
   name: SITE_NAME,
   description: SITE_DESCRIPTION,
   image: socialImage.toString(),
-  url: Astro.site?.toString(),
+  url: homeUrl.toString(),
   telephone: BUSINESS.phoneHref.replace("tel:", ""),
   priceRange: "€€",
   address: {
@@ -68,10 +74,10 @@ const businessSchema = {
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={socialImage} />
 
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="manifest" href="/site.webmanifest" />
+<link rel="icon" type="image/png" sizes="32x32" href={favicon32} />
+<link rel="icon" type="image/png" sizes="16x16" href={favicon16} />
+<link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon} />
+<link rel="manifest" href={manifest} />
 <meta name="theme-color" content="#141414" />
 <meta name="generator" content={Astro.generator} />
 <script type="application/ld+json" is:inline set:html={JSON.stringify(businessSchema)} />

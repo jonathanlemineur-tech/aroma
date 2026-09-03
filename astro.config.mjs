@@ -10,7 +10,7 @@ export default defineConfig({
   // same path (e.g. http://localhost:4321/aroma/), not from `/`. Update if
   // the repo is renamed, or remove this line entirely once a custom domain
   // is set up.
-  base: "/aroma",
+  base: "/aroma/",
   integrations: [
     sitemap({
       filter: (page) => !isNoindexRoute(new URL(page).pathname),

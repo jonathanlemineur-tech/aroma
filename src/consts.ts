@@ -3,8 +3,12 @@ export const SITE_NAME = "Aroma";
 /** Fallback meta description for pages that don't set their own. */
 export const SITE_DESCRIPTION =
   "Aroma, fleuriste à Namur depuis plus de 30 ans : bouquets, compositions sur mesure et abonnement fleurs fraîches. Boutiques à Namur, Jambes et Erpent.";
-/** Canonical origin. Resolves canonical URLs, social images, and the sitemap. */
-export const SITE_URL = "https://jonathanlemineur-tech.github.io/aroma";
+/**
+ * Canonical origin, without the GitHub Pages project path. Resolves
+ * canonical URLs, social images, and the sitemap, combined with the `base`
+ * set in `astro.config.mjs`.
+ */
+export const SITE_URL = "https://jonathanlemineur-tech.github.io";
 /** BCP 47 locale tag used to format dates and numbers. */
 export const SITE_LOCALE = "fr-BE";
 
