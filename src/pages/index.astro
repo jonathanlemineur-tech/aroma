@@ -437,7 +437,7 @@ const TICKER_ITEMS = [
       name="contact"
       class="max-width-small margin-inline-auto"
       data-reveal-stagger="fade-up"
-      successMessage="Merci — nous revenons vers vous rapidement."
+      successMessage="Merci, nous revenons vers vous rapidement."
       errorMessage="L'envoi a échoué. Merci de réessayer."
     >
       <Fieldset legend="Vos coordonnées" legendStyle="hidden" variant="columns">
@@ -446,7 +446,7 @@ const TICKER_ITEMS = [
       </Fieldset>
       <Textarea label="Votre message" required minLines={4} />
       <ButtonWrapper>
-        <Button type="submit">Envoyer</Button>
+        <Button type="submit" class="contact_submit">Envoyer</Button>
       </ButtonWrapper>
     </Form>
   </Section>
@@ -580,6 +580,15 @@ const TICKER_ITEMS = [
 </script>
 
 <style>
+  .contact_submit {
+    --button-background: var(--light-100);
+    --button-border: var(--light-100);
+    --button-text: var(--dark-900);
+    --button-background-hover: var(--brand-400);
+    --button-border-hover: var(--brand-400);
+    --button-text-hover: var(--dark-900);
+  }
+
   .boutique_card {
     display: flex;
     flex-direction: column;
