@@ -1,0 +1,240 @@
+---
+import Icon from "@/components/Media/Icon.astro";
+import logo from "@/assets/logo/aroma-logo-dark-ink.svg";
+import iconFacebook from "@/assets/icons/facebook.svg";
+import iconInstagram from "@/assets/icons/instagram.svg";
+import iconMapPin from "@/assets/icons/map-pin.svg";
+import iconPhone from "@/assets/icons/phone.svg";
+import { SITE_NAME, SITE_ADDRESS, BUSINESS } from "@/consts.ts";
+
+const SOCIALS = [
+  { label: "Facebook", href: BUSINESS.socials.facebook, icon: iconFacebook },
+  { label: "Instagram", href: BUSINESS.socials.instagram, icon: iconInstagram },
+];
+
+const MAPS_HREF = `https://www.google.com/maps/search/?api=query&query=${encodeURIComponent(SITE_ADDRESS)}`;
+
+interface Props {
+  /** Set to `false` to skip rendering this component and its children. */
+  render?: boolean;
+}
+
+const { render = true } = Astro.props;
+---
+
+{
+  render && (
+    <footer class="footer_wrap">
+      <div class="footer_inner">
+        <div class="footer_top">
+          <a class="footer_logo" href="/" aria-label={SITE_NAME}>
+            <Icon src={logo} variant="full-width" />
+          </a>
+          <nav aria-label="Pied de page">
+            <ul class="footer_links">
+              <li>
+                <a class="footer_link" href="#histoire">
+                  Notre histoire
+                </a>
+              </li>
+              <li>
+                <a class="footer_link" href="#produits">
+                  Nos produits
+                </a>
+              </li>
+              <li>
+                <a class="footer_link" href="#horaires">
+                  Horaires & adresse
+                </a>
+              </li>
+              <li>
+                <a class="footer_link" href="#contact">
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <ul class="footer_contact">
+            <li>
+              <a class="footer_link footer_contact_link" href={MAPS_HREF}>
+                <Icon src={iconMapPin} variant="small" />
+                {SITE_ADDRESS}
+              </a>
+            </li>
+            <li>
+              <a class="footer_link footer_contact_link" href={BUSINESS.phoneHref}>
+                <Icon src={iconPhone} variant="small" />
+                {BUSINESS.phone}
+              </a>
+            </li>
+          </ul>
+          <ul class="footer_socials">
+            {SOCIALS.map(({ label, href, icon }) => (
+              <li>
+                <a
+                  class="footer_social"
+                  href={href}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icon src={icon} variant="small" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="footer_bottom">
+          <p class="footer_copyright text-style-small">© <span>{new Date().getFullYear()}</span>&#160; {SITE_NAME} · Designed with 🖤 by{" "} <a href="https://jak.solutions" class="footer_link" target="_blank" rel="noopener noreferrer"><strong>JAK Solutions</strong></a></p>
+          <ul class="footer_legal">
+            <li>
+              <a class="footer_link" href="/mentions-legales">
+                Mentions légales
+              </a>
+            </li>
+            <li>
+              <a class="footer_link" href="/confidentialite">
+                Politique de confidentialité
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  )
+}
+
+<script>
+  const year = document.querySelector<HTMLSpanElement>("#year");
+
+  if (year) {
+    year.textContent = new Date().getFullYear().toString();
+  }
+</script>
+
+<style is:global>
+  @layer components {
+    .footer_wrap {
+      display: flex;
+      justify-content: center;
+      padding: var(--space-6) var(--site-margin);
+      background-color: var(--dark-900);
+    }
+
+    .footer_inner {
+      width: 100%;
+      max-width: var(--max-width-main);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      padding: var(--space-6);
+      background-color: var(--background);
+      color: var(--dark-900);
+      border-radius: var(--radius-main);
+    }
+
+    .footer_top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4) var(--space-6);
+    }
+
+    .footer_logo {
+      display: block;
+      width: 9rem;
+      transition: opacity var(--hover-duration) var(--hover-ease);
+      @media (hover: hover) {
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+
+    .footer_links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-4);
+      font-size: var(--text-small);
+      font-weight: var(--primary-medium);
+    }
+
+    .footer_link {
+      display: inline-block;
+      color: var(--text-2);
+      text-decoration: none;
+      background-image: linear-gradient(var(--brand-500), var(--brand-500));
+      background-repeat: no-repeat;
+      background-position: 100% 100%;
+      background-size: 0 var(--border-width);
+      transition:
+        background-size calc(var(--hover-duration) * 2) var(--hover-ease),
+        color var(--hover-duration) var(--hover-ease);
+      @media (hover: hover) {
+        &:hover {
+          color: var(--dark-900);
+          background-position: 0 100%;
+          background-size: 100% var(--border-width);
+        }
+      }
+    }
+
+    .footer_contact {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-4);
+      font-size: var(--text-small);
+    }
+
+    .footer_contact_link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .footer_socials {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .footer_social {
+      display: flex;
+      color: var(--text-2);
+      transition: color var(--hover-duration) var(--hover-ease);
+      @media (hover: hover) {
+        &:hover {
+          color: var(--brand-500);
+        }
+      }
+    }
+
+    .footer_bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3) var(--space-6);
+      padding-top: var(--space-4);
+      border-top: var(--border-width) solid var(--border);
+    }
+
+    .footer_copyright {
+      color: var(--text);
+    }
+
+    .footer_legal {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      font-size: var(--text-small);
+
+      & .footer_link {
+        color: var(--text);
+      }
+    }
+  }
+</style>

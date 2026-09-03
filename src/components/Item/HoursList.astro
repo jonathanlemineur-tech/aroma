@@ -1,0 +1,65 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Paragraph from "@/components/Typography/Paragraph.astro";
+
+interface Props extends HTMLAttributes<"ul"> {
+  /** Set to `false` to skip rendering this component and its children. */
+  render?: boolean;
+  /** One row per day, or range of days, and the hours it keeps. */
+  rows: { day: string; hours: string }[];
+}
+
+const { render = true, rows, class: className, ...rest } = Astro.props;
+---
+
+{
+  render && rows?.length > 0 && (
+    <ul class:list={["hours-list_wrap", className]} {...rest}>
+      {rows.map(({ day, hours }) => (
+        <li class:list={["hours-list_row", hours === "Fermé" && "closed"]}>
+          <Paragraph tag="span" class="weight-medium">
+            {day}
+          </Paragraph>
+          <Paragraph tag="span" class="hours-list_hours">
+            {hours}
+          </Paragraph>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+<style is:global>
+  @layer components {
+    .hours-list_wrap {
+      width: 100%;
+      margin-top: var(--space-5);
+      padding-bottom: var(--space-3);
+      background-color: var(--dark-900);
+      color: var(--light-100);
+      border-radius: var(--radius-main);
+      overflow: clip;
+    }
+
+    .hours-list_row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-2) var(--space-5);
+
+      & + & {
+        border-top: var(--border-width) solid color-mix(in lab, var(--light-100) 15%, transparent);
+      }
+    }
+
+    .hours-list_hours {
+      color: color-mix(in lab, var(--light-100) 65%, transparent);
+    }
+
+    .hours-list_row.closed .hours-list_hours {
+      color: var(--brand-500);
+      font-weight: var(--primary-medium);
+    }
+  }
+</style>

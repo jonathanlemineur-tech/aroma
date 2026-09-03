@@ -1,0 +1,24 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/Wrapper/Section.astro";
+import ContentWrapper from "@/components/Wrapper/ContentWrapper.astro";
+import Eyebrow from "@/components/Typography/Eyebrow.astro";
+import Heading from "@/components/Typography/Heading.astro";
+import Paragraph from "@/components/Typography/Paragraph.astro";
+---
+
+<Layout title="Mentions légales">
+  <Section paddingTop="large" paddingBottom="large">
+    <ContentWrapper>
+      <Eyebrow>Informations légales</Eyebrow>
+      <Heading tag="h1" class="heading-accent">
+        <strong>Mentions</strong> légales
+      </Heading>
+      <Paragraph variant="large" maxWidth={60}>
+        Cette page est un modèle. Elle sera complétée avec les informations
+        légales réelles de l'entreprise (éditeur du site, hébergeur, SIRET,
+        directeur de publication) avant la mise en ligne du site.
+      </Paragraph>
+    </ContentWrapper>
+  </Section>
+</Layout>

@@ -1,0 +1,672 @@
+---
+import { getImage } from "astro:assets";
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/Wrapper/Section.astro";
+import ContentWrapper from "@/components/Wrapper/ContentWrapper.astro";
+import Grid from "@/components/Wrapper/Grid.astro";
+import ButtonWrapper from "@/components/Wrapper/ButtonWrapper.astro";
+import Eyebrow from "@/components/Typography/Eyebrow.astro";
+import Heading from "@/components/Typography/Heading.astro";
+import Paragraph from "@/components/Typography/Paragraph.astro";
+import Button from "@/components/Button.astro";
+import Img from "@/components/Media/Img.astro";
+import Overlay from "@/components/Media/Overlay.astro";
+import Card from "@/components/Item/Card.astro";
+import Marquee from "@/components/Interactive/Marquee.astro";
+import Slider from "@/components/Interactive/Slider.astro";
+import Accordion from "@/components/Interactive/Accordion.astro";
+import AccordionItem from "@/components/Interactive/AccordionItem.astro";
+import Form from "@/components/Form/Form.astro";
+import Fieldset from "@/components/Form/Fieldset.astro";
+import Input from "@/components/Form/Input.astro";
+import Textarea from "@/components/Form/Textarea.astro";
+import HoursList from "@/components/Item/HoursList.astro";
+import BenefitItem from "@/components/Item/BenefitItem.astro";
+import Icon from "@/components/Media/Icon.astro";
+import decoLeft from "@/assets/graphics/deco-left.svg";
+import decoRight from "@/assets/graphics/deco-right.svg";
+import iconGoogle from "@/assets/icons/google.svg";
+import iconMapPin from "@/assets/icons/map-pin.svg";
+import iconFlower from "@/assets/icons/flower.svg";
+import iconHand from "@/assets/icons/hand.svg";
+import iconLeaf from "@/assets/icons/leaf.svg";
+import heroFleurs from "@/assets/photos/hero-fleurs.jpg";
+import histoireComposition from "@/assets/photos/histoire-composition.jpg";
+import produitBouquets from "@/assets/photos/produit-bouquets.jpg";
+import produitCompositions from "@/assets/photos/produit-compositions.jpg";
+import produitEvenements from "@/assets/photos/produit-evenements.jpg";
+import produitAbonnement from "@/assets/photos/produit-abonnement.jpg";
+import galerieVitrine from "@/assets/photos/galerie-vitrine.jpg";
+import galerieAtelier from "@/assets/photos/galerie-atelier.jpg";
+import { SITE_ADDRESS, BOUTIQUES } from "@/consts.ts";
+
+const ADDRESS = SITE_ADDRESS;
+const MAPS_HREF = `https://www.google.com/maps/search/?api=query&query=${encodeURIComponent(ADDRESS)}`;
+
+const heroPreload = await getImage({
+  src: heroFleurs,
+  width: 1600,
+  layout: "full-width",
+  fit: "cover",
+  position: "center",
+});
+
+const BENEFITS = [
+  {
+    icon: iconFlower,
+    heading: "Bouquets sur intention",
+    text: "Une couleur, une occasion, un budget : nos compositeurs réalisent le bouquet qui dira vos sentiments.",
+  },
+  {
+    icon: iconHand,
+    heading: "Composé à la main",
+    text: "Chaque bouquet est assemblé sur mesure par nos fleuristes, sans automate.",
+  },
+  {
+    icon: iconLeaf,
+    heading: "Fleurs fraîches coupées",
+    text: "Sélectionnées et composées chaque matin, des bouquets sauvages à longues tiges aux compositions classiques.",
+  },
+  {
+    icon: iconMapPin,
+    heading: "3 boutiques près de vous",
+    text: "Namur, Jambes et Erpent : une adresse Aroma près de chez vous, retrait ou livraison locale.",
+  },
+];
+
+const REVIEWS = [
+  {
+    text: "Depuis 30 ans que je passe chez Aroma, jamais déçue. Les compositeurs comprennent toujours ce qu'on cherche à dire.",
+    author: "Anne-Sophie D., Namur",
+  },
+  {
+    text: "L'abonnement fleurs fraîches est devenu un petit rituel du vendredi. Toujours un bouquet différent, jamais deux fois pareil.",
+    author: "Julien M., Jambes",
+  },
+  {
+    text: "Compositions florales pour notre mariage : un vrai sens du détail, et une équipe adorable au comptoir.",
+    author: "Camille & Marc",
+  },
+  {
+    text: "La boutique d'Erpent est devenue une habitude du samedi. Toujours de belles fleurs de saison.",
+    author: "Sophie R., Erpent",
+  },
+];
+
+const FAQS = [
+  {
+    question: "Livrez-vous les bouquets ?",
+    answer:
+      "Oui, nous livrons à Namur, Jambes, Erpent et leurs environs. Écrivez-nous ou passez en boutique pour connaître les zones et délais de livraison.",
+  },
+  {
+    question: "Peut-on commander à l'avance pour un événement ?",
+    answer:
+      "Oui, avec plaisir. Écrivez-nous ou passez en boutique au moins 48h avant pour les commandes de bouquets, compositions ou décorations florales en grande quantité — mariages, réceptions, événements d'entreprise.",
+  },
+  {
+    question: "Proposez-vous un abonnement fleurs fraîches ?",
+    answer:
+      "Oui, un bouquet composé chaque semaine, à retirer en boutique ou en livraison, sans engagement de durée. De quoi fleurir un intérieur ou un accueil professionnel toute l'année.",
+  },
+  {
+    question: "Les fleurs sont-elles différentes selon la saison ?",
+    answer:
+      "Toujours. Nos compositions suivent les arrivages et la saison, pour des fleurs fraîches autant que possible.",
+  },
+  {
+    question: "Dans quelle boutique dois-je passer ?",
+    answer:
+      "Namur, Jambes ou Erpent : les trois boutiques Aroma proposent les mêmes créations. Choisissez celle la plus proche de chez vous.",
+  },
+];
+
+const TICKER_ITEMS = [
+  "Depuis plus de 30 ans à Namur",
+  "Bouquets faits main",
+  "Namur · Jambes · Erpent",
+  "Abonnement fleurs fraîches",
+  "Composé chaque matin",
+  "Aroma · Art Home Fleurs",
+];
+---
+
+<Layout overlap>
+  <link
+    rel="preload"
+    as="image"
+    href={heroPreload.src}
+    imagesrcset={heroPreload.srcSet.attribute}
+    fetchpriority="high"
+    slot="head"
+  />
+  <!-- Hero -->
+  <Section id="hero" theme="dark" align="center" paddingTop="large" paddingBottom="small" class="height-screen">
+    <Img
+      slot="background"
+      class="hero_bg"
+      src={heroFleurs}
+      alt=""
+      width={1600}
+      loading="eager"
+      fetchPriority="high"
+      onload="this.classList.add('is-loaded')"
+    />
+    <Overlay slot="background" strength={72} />
+    <div class="flex-horizontal-nowrap">
+      <Icon src={decoLeft} class="hero_deco hero_deco-left" style="width: clamp(2.5rem, 10vw, 5rem);" />
+      <Eyebrow variant="tag" class="hero_reveal radius-round">
+        <span class="flex-horizontal-nowrap gap-2" style="white-space: nowrap;">
+          <Icon src={iconGoogle} variant="small" />
+          4,1 sur Google
+          <span aria-hidden="true">★★★★☆</span>
+        </span>
+      </Eyebrow>
+      <Icon src={decoRight} class="hero_deco hero_deco-right" style="width: clamp(2.5rem, 10vw, 5rem);" />
+    </div>
+    <Heading tag="h1" variant="display" maxWidth={18} class="hero_reveal heading-accent">
+      La référence <strong class="hero_highlight">florale</strong> à Namur depuis 30 ans.
+    </Heading>
+    <Paragraph variant="large" maxWidth={38} class="hero_reveal">
+      Chez Aroma, une intention, une couleur, un budget suffisent : nos
+      compositeurs réalisent le bouquet parfait. Boutiques à Namur,
+      Jambes et Erpent.
+    </Paragraph>
+    <ButtonWrapper class="hero_reveal">
+      <Button element="link" href="#horaires">Voir nos horaires</Button>
+      <Button element="link" href={MAPS_HREF} emphasis="secondary">
+        Itinéraire
+      </Button>
+    </ButtonWrapper>
+  </Section>
+
+  <!-- Ticker -->
+  <Section theme="brand" paddingTop="even" paddingBottom="even">
+    <Marquee label="Nos engagements">
+      {TICKER_ITEMS.map((item) => (
+        <Paragraph tag="span" variant="h4">{item}</Paragraph>
+      ))}
+    </Marquee>
+  </Section>
+
+  <!-- Produits -->
+  <Section id="produits" paddingTop="large" paddingBottom="large" theme="dark">
+    <ContentWrapper centered data-reveal="fade-up">
+      <Eyebrow>Nos créations</Eyebrow>
+      <Heading tag="h2" maxWidth={20} class="heading-accent">
+        Ce qui sort de <strong>l'atelier</strong> chaque matin
+      </Heading>
+      <Paragraph maxWidth={40}>
+        Tout est composé sur place, à la main, avec des fleurs fraîches du jour.
+      </Paragraph>
+    </ContentWrapper>
+    <Grid xsmall={1} small={2} large={4} data-reveal-stagger="pop">
+      <Card
+        variant="stacked"
+        class="radius-top-round"
+        image={produitBouquets}
+        eyebrow="Bouquets"
+        heading="Bouquets de saison"
+        text="Fleurs fraîches sélectionnées chaque semaine, composées selon les arrivages."
+      />
+      <Card
+        variant="stacked"
+        class="radius-top-round"
+        image={produitCompositions}
+        eyebrow="Compositions"
+        heading="Compositions sur mesure"
+        text="Pensées pour un intérieur, un bureau ou une occasion particulière."
+      />
+      <Card
+        variant="stacked"
+        class="radius-top-round"
+        image={produitEvenements}
+        eyebrow="Événements"
+        heading="Fleurs pour événements"
+        text="Mariages, anniversaires et réceptions : compositions sur mesure pour chaque moment."
+      />
+      <Card
+        variant="stacked"
+        class="radius-top-round"
+        image={produitAbonnement}
+        eyebrow="Chaque semaine"
+        heading="Abonnement fleurs fraîches"
+        text="Un bouquet livré ou à retirer chaque semaine, sans y penser."
+      />
+    </Grid>
+  </Section>
+
+  <!-- Histoire -->
+  <Section id="histoire" paddingTop="large" paddingBottom="large">
+    <ContentWrapper variant="columns" data-reveal="columns">
+      <Eyebrow>Notre histoire</Eyebrow>
+      <Heading tag="h2" maxWidth={26} class="heading-accent">
+        Trois boutiques, <strong>une même passion</strong> depuis 30 ans.
+      </Heading>
+      <Paragraph variant="large" maxWidth={40}>
+        Depuis plus de 30 ans à Namur, Aroma est la référence florale.
+        Donnez-nous une intention, une couleur, un budget : nos
+        compositeurs réalisent le bouquet parfait, du bouquet sauvage
+        à longues tiges à la composition la plus classique.
+      </Paragraph>
+      <ButtonWrapper>
+        <Button element="link" href="#produits">
+          Découvrir nos créations
+        </Button>
+      </ButtonWrapper>
+      <Img
+        slot="column2"
+        src={histoireComposition}
+        alt="Bouquet en dégradé de rose et mauve composé par l'équipe Aroma"
+        width={900}
+      />
+    </ContentWrapper>
+  </Section>
+
+  <!-- Bénéfices -->
+  <Section align="center" paddingTop="large" paddingBottom="large" theme="dark">
+    <Grid xsmall={2} large={4} data-reveal-stagger="pop-rotate">
+      {BENEFITS.map(({ icon, heading, text }) => (
+        <BenefitItem icon={icon} heading={heading} text={text} />
+      ))}
+    </Grid>
+  </Section>
+
+  <!-- Galerie -->
+  <Section id="galerie" paddingTop="large" paddingBottom="large">
+    <ContentWrapper centered data-reveal="fade-up">
+      <Eyebrow>Galerie</Eyebrow>
+      <Heading tag="h2" maxWidth={20} class="heading-accent">
+        Un aperçu de <strong>l'atelier</strong>
+      </Heading>
+      <Paragraph maxWidth={40}>
+        Entre atelier et vitrine, quelques instants pris sur le vif.
+      </Paragraph>
+    </ContentWrapper>
+    <Slider label="Galerie photos" medium={2} large={3}>
+      <div class="ratio-4-5 radius-main overflow-hidden min-height-0">
+        <Img
+          src={galerieVitrine}
+          alt="Vitrine du fleuriste garnie de bouquets et compositions"
+          width={700}
+          class="cover"
+        />
+      </div>
+      <div class="ratio-4-5 radius-main overflow-hidden min-height-0">
+        <Img
+          src={histoireComposition}
+          alt="Bouquet en dégradé de rose et mauve composé par l'équipe Aroma"
+          width={700}
+          class="cover"
+        />
+      </div>
+      <div class="ratio-4-5 radius-main overflow-hidden min-height-0">
+        <Img
+          src={galerieAtelier}
+          alt="Bouquet de tournesols et fleurs bleues des champs"
+          width={700}
+          class="cover"
+        />
+      </div>
+      <div class="ratio-4-5 radius-main overflow-hidden min-height-0">
+        <Img
+          src={produitCompositions}
+          alt="Bouquet de saison tout juste composé"
+          width={700}
+          class="cover"
+        />
+      </div>
+      <div class="ratio-4-5 radius-main overflow-hidden min-height-0">
+        <Img
+          src={galerieVitrine}
+          alt="Vitrine du fleuriste garnie de bouquets et compositions"
+          width={700}
+          class="cover"
+        />
+      </div>
+      <div class="ratio-4-5 radius-main overflow-hidden min-height-0">
+        <Img
+          src={histoireComposition}
+          alt="Bouquet en dégradé de rose et mauve composé par l'équipe Aroma"
+          width={700}
+          class="cover"
+        />
+      </div>
+      <div class="ratio-4-5 radius-main overflow-hidden min-height-0">
+        <Img
+          src={galerieAtelier}
+          alt="Bouquet de tournesols et fleurs bleues des champs"
+          width={700}
+          class="cover"
+        />
+      </div>
+    </Slider>
+  </Section>
+
+  <!-- Avis -->
+  <Section id="avis" paddingTop="large" paddingBottom="large" theme="dark">
+    <ContentWrapper centered data-reveal="fade-up">
+      <Eyebrow>Chez Aroma</Eyebrow>
+      <Heading tag="h2" maxWidth={20} class="heading-accent">
+        Ce qu'en disent <strong>nos clients</strong>
+      </Heading>
+      <Button element="link" href={MAPS_HREF} target="_blank" rel="noopener noreferrer" variant="link" class="margin-top-2">
+        <span class="flex-horizontal-nowrap gap-2" style="white-space: nowrap;">
+          <Icon src={iconGoogle} variant="small" />
+          Donnez-nous votre avis
+        </span>
+      </Button>
+    </ContentWrapper>
+    <Slider label="Avis clients" variant="contained" medium={2} large={3} data-reveal-stagger="tilt">
+      {REVIEWS.map(({ text, author }) => (
+        <Card
+          theme="invert"
+          text={`<strong style="color: var(--dark-800);">★★★★★</strong><br />${text}<br /><strong>${author}</strong>`}
+        />
+      ))}
+    </Slider>
+  </Section>
+
+  <!-- Horaires & adresse -->
+  <Section id="horaires" paddingTop="large" paddingBottom="large">
+    <ContentWrapper centered data-reveal="fade-up">
+      <Eyebrow>Nous trouver</Eyebrow>
+      <Heading tag="h2" maxWidth={26} class="heading-accent">
+        Trois boutiques <strong>Aroma</strong> à Namur
+      </Heading>
+      <Paragraph maxWidth={38}>
+        Mêmes créations, même équipe : choisissez la boutique la plus proche de chez vous.
+      </Paragraph>
+    </ContentWrapper>
+    <Grid xsmall={1} medium={3} data-reveal-stagger="fade-up">
+      {BOUTIQUES.map(({ city, address, phone, phoneHref, hours }) => {
+        const boutiqueMapsHref = `https://www.google.com/maps/search/?api=query&query=${encodeURIComponent(address)}`;
+        return (
+          <div class="boutique_card">
+            <Eyebrow>🌸 {city}</Eyebrow>
+            <div class="flex-horizontal-nowrap gap-2">
+              <Icon src={iconMapPin} variant="small" class="color-brand" />
+              <Paragraph variant="large">{address}</Paragraph>
+            </div>
+            <HoursList rows={hours} />
+            <ButtonWrapper>
+              <Button element="link" href={boutiqueMapsHref}>
+                Itinéraire
+              </Button>
+              {phone && (
+                <Button element="link" href={phoneHref} emphasis="secondary">
+                  Appeler
+                </Button>
+              )}
+            </ButtonWrapper>
+          </div>
+        );
+      })}
+    </Grid>
+  </Section>
+
+  <!-- FAQ -->
+  <Section id="faq" paddingTop="large" paddingBottom="large" theme="dark">
+    <ContentWrapper centered data-reveal="fade-up">
+      <Eyebrow>Des questions ?</Eyebrow>
+      <Heading tag="h2" maxWidth={20} class="heading-accent">
+        Questions <strong>fréquentes</strong>
+      </Heading>
+    </ContentWrapper>
+    <Accordion class="faq_list max-width-small margin-inline-auto" data-reveal="fade-up">
+      {FAQS.map(({ question, answer }) => (
+        <AccordionItem class="faq_item theme-invert" heading={question}>
+          <Paragraph>{answer}</Paragraph>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  </Section>
+
+  <!-- Contact -->
+  <Section id="contact" paddingTop="large" paddingBottom="large" theme="dark">
+    <ContentWrapper centered data-reveal="fade-up">
+      <Eyebrow>Restons en contact</Eyebrow>
+      <Heading tag="h2" maxWidth={20} class="heading-accent">
+        Une question, une commande <strong>spéciale</strong> ?
+      </Heading>
+      <Paragraph maxWidth={34}>
+        Écrivez-nous, on vous répond sous 24h.
+      </Paragraph>
+    </ContentWrapper>
+    <Form
+      name="contact"
+      class="max-width-small margin-inline-auto"
+      data-reveal-stagger="fade-up"
+      successMessage="Merci — nous revenons vers vous rapidement."
+      errorMessage="L'envoi a échoué. Merci de réessayer."
+    >
+      <Fieldset legend="Vos coordonnées" legendStyle="hidden" variant="columns">
+        <Input variant="first-name" label="Prénom" required />
+        <Input variant="email" label="E-mail" required />
+      </Fieldset>
+      <Textarea label="Votre message" required minLines={4} />
+      <ButtonWrapper>
+        <Button type="submit">Envoyer</Button>
+      </ButtonWrapper>
+    </Form>
+  </Section>
+</Layout>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (reduced) {
+    gsap.set(
+      "#hero .hero_reveal, #hero .hero_deco, [data-reveal], [data-reveal-stagger] .grid > *, [data-reveal-stagger] .slider_list > *, [data-reveal-stagger] .form_fields > *",
+      { clearProps: "all" },
+    );
+  } else {
+    gsap
+      .timeline({ defaults: { ease: "power3.out" } })
+      .fromTo(
+        ".nav_inner",
+        { y: "-3rem", opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, clearProps: "transform" },
+      )
+      .fromTo(
+        "#hero .hero_reveal",
+        { y: 16, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.45, stagger: 0.07 },
+        "-=0.2",
+      )
+      .fromTo(
+        "#hero .hero_deco-left",
+        { x: "3.5rem", rotate: 40, opacity: 0 },
+        { x: 0, rotate: 0, opacity: 1, duration: 0.6, ease: "back.out(1.7)" },
+        "-=0.15",
+      )
+      .fromTo(
+        "#hero .hero_deco-right",
+        { x: "-3.5rem", rotate: -40, opacity: 0 },
+        { x: 0, rotate: 0, opacity: 1, duration: 0.6, ease: "back.out(1.7)" },
+        "<",
+      );
+
+    const setupScrollReveals = () => {
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.config({ ignoreMobileResize: true });
+
+      for (const el of gsap.utils.toArray<HTMLElement>('[data-reveal="fade-up"]')) {
+        gsap.fromTo(
+          el,
+          { y: 28, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: { trigger: el, start: "top 85%", once: true },
+          },
+        );
+      }
+
+      for (const layout of gsap.utils.toArray<HTMLElement>('[data-reveal="columns"]')) {
+        const reversed = layout.classList.contains("reversed");
+        const [col1, col2] = Array.from(layout.children) as HTMLElement[];
+        const trigger = { trigger: layout, start: "top 80%", once: true };
+        if (col1) {
+          gsap.fromTo(
+            col1,
+            { x: reversed ? 40 : -40, opacity: 0 },
+            { x: 0, opacity: 1, duration: 0.7, ease: "power2.out", scrollTrigger: trigger },
+          );
+        }
+        if (col2) {
+          gsap.fromTo(
+            col2,
+            { x: reversed ? -40 : 40, opacity: 0, scale: 0.96 },
+            {
+              x: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 0.7,
+              ease: "power2.out",
+              scrollTrigger: trigger,
+            },
+          );
+        }
+      }
+
+      const staggerPresets: Record<
+        string,
+        { from: gsap.TweenVars; to: gsap.TweenVars }
+      > = {
+        pop: {
+          from: { scale: 0.85, opacity: 0 },
+          to: { scale: 1, opacity: 1, ease: "back.out(1.7)" },
+        },
+        "pop-rotate": {
+          from: { scale: 0.7, opacity: 0, rotate: -8 },
+          to: { scale: 1, opacity: 1, rotate: 0, ease: "back.out(1.7)" },
+        },
+        tilt: {
+          from: { y: 24, opacity: 0, rotate: -3 },
+          to: { y: 0, opacity: 1, rotate: 0, ease: "power2.out" },
+        },
+        "fade-up": {
+          from: { y: 20, opacity: 0 },
+          to: { y: 0, opacity: 1, ease: "power2.out" },
+        },
+      };
+
+      for (const group of gsap.utils.toArray<HTMLElement>("[data-reveal-stagger]")) {
+        const preset =
+          staggerPresets[group.dataset.revealStagger ?? ""] ?? staggerPresets["fade-up"];
+        const container =
+          group.querySelector<HTMLElement>(".slider_list, .form_fields") ?? group;
+        const children = Array.from(container.children) as HTMLElement[];
+        if (!children.length) continue;
+        gsap.fromTo(children, preset.from, {
+          ...preset.to,
+          duration: 0.6,
+          stagger: 0.1,
+          scrollTrigger: { trigger: group, start: "top 85%", once: true },
+        });
+      }
+    };
+
+    const idle =
+      window.requestIdleCallback ?? ((cb: IdleRequestCallback) => setTimeout(cb, 300));
+    idle(setupScrollReveals, { timeout: 1500 });
+  }
+</script>
+
+<style>
+  .boutique_card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    height: 100%;
+    padding: var(--space-5);
+    background-color: var(--background-2);
+    border-radius: var(--radius-main);
+
+    & .hours-list_wrap {
+      margin-top: 0;
+    }
+
+    & .button-wrapper {
+      margin-top: auto;
+      padding-top: var(--space-2);
+    }
+  }
+
+  .hero_highlight {
+    display: inline-block;
+    padding: 0 1.5rem;
+    background-color: var(--dark-900);
+    border-radius: 0.9375rem;
+    rotate: -2deg;
+
+    @media (width < 48rem) {
+      padding: 0.25rem 0.5rem;
+    }
+  }
+</style>
+
+<style is:global>
+  #faq {
+    .faq_list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .faq_item {
+      padding-inline: var(--space-5);
+      border-radius: var(--radius-main);
+      border-bottom: 0;
+    }
+  }
+
+  #hero .hero_bg {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+
+    &.is-loaded {
+      opacity: 1;
+    }
+  }
+
+  /*
+   * Hide entrance-animated elements from first paint so they never flash
+   * in static before GSAP takes over — the reveal script itself only runs
+   * once the browser is idle, which can lag well behind first paint.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    .nav_inner,
+    #hero .hero_reveal,
+    #hero .hero_deco,
+    [data-reveal="fade-up"],
+    [data-reveal="columns"] > *,
+    [data-reveal-stagger] .grid > *,
+    [data-reveal-stagger] .slider_list > *,
+    [data-reveal-stagger] .form_fields > * {
+      opacity: 0;
+    }
+  }
+</style>
+
+<noscript>
+  <style>
+    .nav_inner,
+    #hero .hero_bg,
+    #hero .hero_reveal,
+    #hero .hero_deco,
+    [data-reveal="fade-up"],
+    [data-reveal="columns"] > *,
+    [data-reveal-stagger] .grid > *,
+    [data-reveal-stagger] .slider_list > *,
+    [data-reveal-stagger] .form_fields > * {
+      opacity: 1 !important;
+    }
+  </style>
+</noscript>

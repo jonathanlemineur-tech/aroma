@@ -1,0 +1,58 @@
+---
+import Icon from "@/components/Media/Icon.astro";
+import phone from "@/assets/icons/phone.svg";
+import { BUSINESS } from "@/consts.ts";
+
+interface Props {
+  /** Set to `false` to skip rendering this component and its children. */
+  render?: boolean;
+  /** Number dialed, in `tel:` format. */
+  href?: string;
+  /** What the button does, for anyone who cannot see it. */
+  label?: string;
+}
+
+const {
+  render = true,
+  href = BUSINESS.phoneHref,
+  label = "Appeler Aroma",
+} = Astro.props;
+---
+
+{
+  render && (
+    <a class="call-button_wrap" href={href} aria-label={label}>
+      <Icon src={phone} class="call-button_icon" />
+    </a>
+  )
+}
+
+<style is:global>
+  @layer components {
+    .call-button_wrap {
+      position: fixed;
+      right: var(--space-5);
+      bottom: var(--space-5);
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      background-color: var(--brand-500);
+      border-radius: var(--radius-round);
+      box-shadow: 0 8px 24px color-mix(in srgb, var(--dark-900) 25%, transparent);
+      transition: scale var(--hover-duration) var(--hover-ease);
+      @media (hover: hover) {
+        &:hover {
+          scale: 1.08;
+        }
+      }
+    }
+
+    .call-button_icon {
+      --_size: 1.5rem;
+      color: var(--background);
+    }
+  }
+</style>
